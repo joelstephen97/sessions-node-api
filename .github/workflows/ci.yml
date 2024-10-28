@@ -12,11 +12,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - name: Login Dockerhub
-      env: 
-        DOCKER_U: ${{secrets.DOCKER_U}}
-        DOCKER_P:  ${{secrets.DOCKER_P}}
-      run:  docker login -u $DOCKER_U -p $DOCKER_P
+    - name: Login to DockerHub
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKER_U }}
+        password: ${{ secrets.DOCKER_P }}
     - name: Build the Docker image
       run: docker build -t sessions-node-api .
     - name: Push to Dockerhub
