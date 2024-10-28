@@ -1,0 +1,19 @@
+name: CD Pipeline
+
+on:
+  workflow_run: 
+    workflows: ["CI Pipeline"]
+    types:
+        - completed
+
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+
+    - name: Pull Docker Image
+      run: sudo docker pull ${{ secrets.DOCKER_U }}/sessions-node-api:latest
+    - name: Delete Old Docker Container
+      run : sudo docker rm -f sessions-node-api-container || true
+    - name: Run Docker Image
+      run: sudo docker run -d -p 3001:3001 --name sessions-node-api-container ${{ secrets.DOCKER_U }}/sessions-node-api
