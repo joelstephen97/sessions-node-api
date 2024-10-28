@@ -17,4 +17,4 @@ COPY . .
 EXPOSE 3001
 
 # Define the command to run your app
-CMD ["node", "index.mjs"]
+CMD ["npm", "start"]

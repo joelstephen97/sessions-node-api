@@ -155,6 +155,13 @@ app.delete('/session/:sessionId', async (req, res) => {
   res.json({ message: 'Session deleted successfully' });
 });
 
+app.get('/',(req, res) => {
+  res.json({
+    status: 200,
+    message: 'Welcome to the Sessions API for R6!',
+  })
+})
+
 /**
  * Start the server.
  */
