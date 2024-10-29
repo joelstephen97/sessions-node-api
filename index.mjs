@@ -12,7 +12,14 @@ import {
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+
+// Set up CORS globally with custom options
+const corsOptions = {
+  origin: 'http://localhost:3000',  // Replace with your frontend origin
+  methods: 'GET,POST,PUT,DELETE,OPTIONS',
+  allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept',
+};
+app.use(cors(corsOptions));
 
 const PORT = process.env.PORT || 3001;
 
@@ -37,9 +44,6 @@ app.post('/create-session', async (req, res) => {
     defenders: [],
   };
   await db.write();
-  res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept'); 
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
   res.json({ sessionId, playerId });
 });
 
