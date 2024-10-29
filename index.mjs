@@ -71,7 +71,7 @@ app.post('/join-session', async (req, res) => {
   session.players.push(player);
   await db.write();
 
-  res.json({ session, playerId });
+  res.json({status: 200, session, playerId });
 });
 
 /**
@@ -98,7 +98,7 @@ app.post('/change-player-name', async (req, res) => {
   player.name = newPlayerName;
   await db.write();
 
-  res.json({ message: 'Player name updated', session });
+  res.json({status: 200, message: 'Player name updated', session });
 });
 
 /**
@@ -113,7 +113,7 @@ app.get('/session/:sessionId', async (req, res) => {
     return res.status(404).json({ error: 'Session not found' });
   }
 
-  res.json(session);
+  res.json({status: 200,session});
 });
 
 /**
@@ -142,7 +142,7 @@ app.post('/session/:sessionId/update-operators', async (req, res) => {
   session.defenders = defenders;
   await db.write();
 
-  res.json({ message: 'Operators updated' });
+  res.json({status: 200, message: 'Operators updated' });
 });
 
 /**
